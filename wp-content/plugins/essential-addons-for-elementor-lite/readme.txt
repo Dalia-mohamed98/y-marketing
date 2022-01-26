@@ -2,9 +2,9 @@
 Contributors: wpdevteam, Codetic, re_enter_rupok, Asif2BD, priyomukul, manzurahammed, sumaiyasiddika, rudlinkon, robinwpdeveloper
 Tags: elementor, elements, addons, elementor addons, elementor widget, elementor form, woocommerce elementor, page builder, builder, visual editor, wordpress page builder
 Requires at least: 5.0
-Tested up to: 5.8
+Tested up to: 5.9
 Requires PHP: 5.6
-Stable tag: 5.0.1
+Stable tag: 5.0.3
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -154,7 +154,7 @@ More features and improvements are coming on regular updates. Want to unlock the
 **WP Mayor:** “If you use Elementor, Essential Addons is a great way to expand your library of available widgets without slowing your site down.” 
 **WP Pagebuilders:** “With 60+ additional widgets, Essential Addons is a great add-on to enhance your experience in building a website with WordPress+Elementor.” 
 **MonsterPost:** “Essential Addons for Elementor has the largest number of active users among all third-party extensions on the market. The widgets are tested in all popular web browsers to ensure full browser compatibility for all elements.” 
-**WPCrafer:** WordPress influencer Adam Preiser did a Speed Test & found Essential Addons for Elementor is the fastest solution out there 👇
+**WPCrafter:** WordPress influencer Adam Preiser did a Speed Test & found Essential Addons for Elementor is the fastest solution out there 👇
 
 https://www.youtube.com/watch?v=K9BssSV-KC8
 
@@ -240,6 +240,30 @@ Your existing elements/content will work with premium version. So you won't lose
 
 
 == Changelog ==
+
+= 5.0.3 - 25/01/2022 =
+
+- Fixed: Parameter sanitization in dynamic widgets
+- Fixed EA Advanced Accordion & Tabs | Custom ID Anchor not working with links on same page
+- Fixed: EA Interactive Card rear panel scrolling not working inside EA Advanced Tabs 
+- Fixed: EA Woo Cart | Last item not getting removed from Cart
+- Fixed: EA Interactive Circle | Global Color not working on Items
+- Added: EA Woo Checkout | Option for hiding the coupon code
+- Few minor bug fixes & improvements
+
+= 5.0.2 - 19/01/2022 =
+
+- Improved: EA Duplicator | Security Enhancement
+- Fixed: EA Call to Action | Throwing fatal error when saved template is chosen as content type
+- Fixed: EA Countdown | Throwing warning on PHP 8.0
+- Fixed: EA Advanced Tabs | Anchor link not working with when used within the same page
+- Fixed: EA Sticky Video | Throwing undefined offset error
+- Fixed: EA Woo Checkout | Throwing error notice when Cart Summary is updated
+- Fixed: EA Table of Contents | Not working on Archive pages
+- Fixed: EA Interactive Circle | Not translating with WPML
+- Improved: EA Call to Action | Added option to upload Background image
+- Improved: EA Woo Cart | Option to change Empty Cart text
+- Few minor bug fixes & improvements
 
 = 5.0.1 - 30/12/2021 =
 

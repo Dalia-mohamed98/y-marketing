@@ -40,7 +40,9 @@ class Woo_Cart extends Widget_Base {
 			}
 
 			// Added 'eael-woo-cart' class to body
-			add_filter( 'body_class', [ $this, 'add_cart_body_class' ] );
+			if ( is_cart() ) {
+				add_filter( 'body_class', [ $this, 'add_cart_body_class' ] );
+			}
 
 			// Remove default 'woocommerce_cart_totals' callback from 'woocommerce_cart_collaterals'
 			remove_action( 'woocommerce_cart_collaterals', 'woocommerce_cart_totals', 10 );
@@ -235,7 +237,7 @@ class Woo_Cart extends Widget_Base {
 				'label'     => esc_html__( 'Icon Color', 'essential-addons-for-elementor-lite' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .eael-woo-cart-wrapper form.eael-woo-cart-form .eael-woo-cart-table tbody tr td.product-remove a' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .eael-woo-cart-wrapper form.eael-woo-cart-form .eael-woo-cart-table tbody tr td.product-remove a' => 'color: {{VALUE}} !important;',
 				],
 				'condition' => [
 					'column_type' => 'remove'
@@ -808,7 +810,7 @@ class Woo_Cart extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .eael-woo-cart-wrapper.eael-woo-style-2 form.eael-woo-cart-form .eael-woo-cart-table .eael-woo-cart-tr .eael-woo-cart-tr-right > .eael-woo-cart-td.product-remove a,
-					{{WRAPPER}} .eael-woo-cart-wrapper.eael-woo-style-2 form.eael-woo-cart-form .eael-woo-cart-table .eael-woo-cart-tr .eael-woo-cart-tr-left .eael-woo-cart-td.product-thumbnail .eael-woo-cart-product-remove a' => 'color: {{VALUE}};',
+					{{WRAPPER}} .eael-woo-cart-wrapper.eael-woo-style-2 form.eael-woo-cart-form .eael-woo-cart-table .eael-woo-cart-tr .eael-woo-cart-tr-left .eael-woo-cart-td.product-thumbnail .eael-woo-cart-product-remove a' => 'color: {{VALUE}} !important;',
 				],
 				'condition' => [
 					'eael_woo_cart_table_components_remove' => 'yes'
@@ -1100,9 +1102,18 @@ class Woo_Cart extends Widget_Base {
 		$this->add_control(
 			'eael_woo_cart_components_cart_checkout_button_text',
 			[
-				'label'     => esc_html__( 'Checkout Button Text', 'essential-addons-for-elementor-lite' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => esc_html__( 'Proceed to Checkout', 'essential-addons-for-elementor-lite' ),
+				'label'   => esc_html__( 'Checkout Button Text', 'essential-addons-for-elementor-lite' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => esc_html__( 'Proceed to Checkout', 'essential-addons-for-elementor-lite' ),
+			]
+		);
+
+		$this->add_control(
+			'eael_woo_cart_components_empty_cart_text',
+			[
+				'label'   => esc_html__( 'Empty Cart Text', 'essential-addons-for-elementor-lite' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => esc_html__( 'Your cart is currently empty.', 'essential-addons-for-elementor-lite' ),
 			]
 		);
 
@@ -1345,7 +1356,7 @@ class Woo_Cart extends Widget_Base {
 					.eael-woo-cart {{WRAPPER}} .eael-woo-cart-wrapper.eael-woo-style-2 form.eael-woo-cart-form .eael-woo-cart-table .product-name .eael-woo-cart-sku,
 					{{WRAPPER}} .eael-woo-cart-wrapper form.eael-woo-cart-form .eael-woo-cart-table .product-name dl,
 					{{WRAPPER}} .eael-woo-cart-wrapper form.eael-woo-cart-form .eael-woo-cart-table .product-remove a,
-					{{WRAPPER}} .eael-woo-cart-wrapper.eael-woo-style-2 form.eael-woo-cart-form .eael-woo-cart-table .eael-woo-cart-tr .eael-woo-cart-td.product-remove a' => 'color: {{VALUE}};',
+					{{WRAPPER}} .eael-woo-cart-wrapper.eael-woo-style-2 form.eael-woo-cart-form .eael-woo-cart-table .eael-woo-cart-tr .eael-woo-cart-td.product-remove a' => 'color: {{VALUE}} !important;',
 				],
 			]
 		);
@@ -2508,6 +2519,8 @@ class Woo_Cart extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		$this->ea_woo_cart_add_actions( $settings );
 
+		add_filter( 'wc_empty_cart_message', [ $this, 'wc_empty_cart_message' ] );
+
 		if ( in_array( $settings['ea_woo_cart_layout'], [ 'style-3', 'style-4', 'style-5' ] ) ) {
 			if ( ! apply_filters( 'eael/pro_enabled', false ) ) {
 				return;
@@ -2516,7 +2529,7 @@ class Woo_Cart extends Widget_Base {
 
 		$this->ea_cart_render();
 		?>
-		<script>document.body.classList.add("eael-woo-cart");</script>
+        <script>document.body.classList.add("eael-woo-cart");</script>
 		<?php
 	}
 

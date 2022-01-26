@@ -929,7 +929,7 @@ class Adv_Tabs extends Widget_Base
 	                    $tab_id = $tab['eael_adv_tabs_tab_id'] ? $tab['eael_adv_tabs_tab_id'] : Helper::str_to_css_id( $tab['eael_adv_tabs_tab_title'] );
 	                    $tab_id = $tab_id === 'safari' ? 'eael-safari' : $tab_id;
                         ?>
-                        <li id="<?php echo esc_attr( $tab_id ); ?>" class="<?php echo esc_attr($tab['eael_adv_tabs_tab_show_as_default']); ?>">
+                        <li id="<?php echo esc_attr( $tab_id ); ?>" class="<?php echo esc_attr($tab['eael_adv_tabs_tab_show_as_default']); ?> eael-tab-item-trigger">
                             <?php if( $settings['eael_adv_tab_icon_position'] === 'eael-tab-inline-icon' && $settings['eael_adv_tabs_tab_icon_alignment'] === 'after' ) : ?>
                                 <span class="eael-tab-title title-before-icon"><?php echo Helper::eael_wp_kses($tab['eael_adv_tabs_tab_title']); ?></span>
                             <?php endif; ?>
@@ -960,10 +960,10 @@ class Adv_Tabs extends Widget_Base
             <div class="eael-tabs-content">
 		        <?php foreach ($settings['eael_adv_tabs_tab'] as $tab) :
 			        $eael_find_default_tab[] = $tab['eael_adv_tabs_tab_show_as_default'];
-			        $tab_id = $tab['eael_adv_tabs_tab_id'] ? $tab['eael_adv_tabs_tab_id'] : Helper::str_to_css_id( $tab['eael_adv_tabs_tab_title'] );
+			        $tab_id = $tab['eael_adv_tabs_tab_id'] ? $tab['eael_adv_tabs_tab_id'] : Helper::str_to_css_id( $tab['eael_adv_tabs_tab_title'] ) . '-tab';
 			        $tab_id = $tab_id === 'safari' ? 'eael-safari' : $tab_id; ?>
 
-                    <div id="<?php echo $tab_id . '-tab'; ?>" class="clearfix eael-tab-content-item <?php echo esc_attr($tab['eael_adv_tabs_tab_show_as_default']); ?>" data-title-link="<?php echo $tab_id; ?>">
+                    <div id="<?php echo $tab_id; ?>" class="clearfix eael-tab-content-item <?php echo esc_attr($tab['eael_adv_tabs_tab_show_as_default']); ?>" data-title-link="<?php echo $tab_id; ?>">
 				        <?php if ('content' == $tab['eael_adv_tabs_text_type']) : ?>
 					        <?php echo do_shortcode($tab['eael_adv_tabs_tab_content']); ?>
 				        <?php elseif ('template' == $tab['eael_adv_tabs_text_type']) : ?>
