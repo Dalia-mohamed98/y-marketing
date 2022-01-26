@@ -397,7 +397,7 @@ Kirki::add_field( 'bizberg', array(
     'settings'    => 'blog_listing_image_size',
     'label'       => esc_html__( 'Blog Listing Image Size', 'bizberg' ),
     'section'     => 'homepage',
-    'default'     => apply_filters( 'bizberg_blog_listing_image_size', 'col-xs-5|col-xs-7' ),
+    'default'     => apply_filters( 'bizberg_blog_listing_image_size', 'col-xs-6|col-xs-6' ),
     'choices'     => array(
         'col-xs-5|col-xs-7'   => esc_html__( 'Small', 'bizberg' ),
         'col-xs-6|col-xs-6'   => esc_html__( 'Large', 'bizberg' ),
@@ -487,7 +487,7 @@ Kirki::add_field( 'bizberg', array(
 	'settings'    => 'hide_author',
 	'label'       => esc_html__( 'Hide Author', 'bizberg' ),
 	'section'     => 'homepage',
-    'default'     => apply_filters( 'bizberg_hide_author' , false ),
+    'default'     => apply_filters( 'bizberg_hide_author' , true ),
     'active_callback' => array(
         array(
             array(

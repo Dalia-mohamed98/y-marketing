@@ -942,6 +942,25 @@ header .navbar-default .navbar-nav > li > a:hover:after{display: none;}
         padding: 0 15px;
     }
 
+    .single_post_layout_2 .related_posts_wrapper .related_posts:first-child {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+    }
+
+    body .single_post_layout_2 .related_posts_wrapper .related_posts:first-child .content-col {
+        padding-top: 10px;
+        padding-bottom: 0px;
+        width: 100%;
+    }
+
+    .single_post_layout_2 .related_posts_wrapper .related_posts:first-child .image-col .related_image {
+        height: 300px;
+    }
+
+    .single_post_layout_2 .related_posts_wrapper .related_posts:first-child .image-col {
+        width: 100%;
+    }
+
 }
 
 @media (max-width: 767px) {

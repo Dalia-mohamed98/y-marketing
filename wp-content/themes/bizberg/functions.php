@@ -1855,13 +1855,13 @@ function bizberg_check_sidebar_active_inactive_class_page(){
 if ( ! function_exists( 'bizberg_get_theme_mod' ) ) {
   	function bizberg_get_theme_mod( $field_id, $default_value = '' ) {
     	if ( $field_id ) {
-      	if ( !$default_value ) {
-        		if ( class_exists( 'Kirki' ) && isset( Kirki::$fields[ $field_id ] ) && isset( Kirki::$fields[ $field_id ]['default'] ) ) {
-          		$default_value = Kirki::$fields[ $field_id ]['default'];
-        		}
-      	}
-      	$value = get_theme_mod( $field_id, $default_value );
-      	return $value;
+	      	if ( !$default_value ) {
+	        		if ( class_exists( 'Kirki' ) ) {
+	          			$default_value = Kirki::get_option( 'bizberg', $field_id );
+	        		}
+	      	}
+	      	$value = get_theme_mod( $field_id, $default_value );
+	      	return $value;
     	}
     	return false;
   	}
@@ -2499,6 +2499,10 @@ function bizberg_get_pro_link(){
 
 		case 'fashion-freak':
 			return 'https://bizbergthemes.com/downloads/fashion-freak-pro-2/';
+			break;
+
+		case 'econsulting-agency':
+			return 'https://bizbergthemes.com/downloads/econsulting-agency-pro/';
 			break;
 		
 		default:
