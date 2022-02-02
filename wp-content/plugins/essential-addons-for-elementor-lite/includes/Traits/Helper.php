@@ -111,25 +111,28 @@ trait Helper
             'read_more_link_target_blank' => $settings['read_more_link_target_blank'] ? 'target="_blank"' : '',
         ];
 
-	    $template_info = $_REQUEST['template_info'];
-	    $template_info = array_map( 'sanitize_text_field', $template_info );
+	    $template_info = $this->eael_sanitize_template_param( $_REQUEST['template_info'] );
 
         if ( $template_info ) {
 
 	        if ( $template_info[ 'dir' ] === 'theme' ) {
-		        $file_path = $this->retrive_theme_path();
+		        $dir_path = $this->retrive_theme_path();
 	        } else if($template_info[ 'dir' ] === 'pro') {
-		        $file_path = sprintf("%sincludes",EAEL_PRO_PLUGIN_PATH);
+		        $dir_path = sprintf("%sincludes",EAEL_PRO_PLUGIN_PATH);
             } else {
-		        $file_path = sprintf("%sincludes",EAEL_PLUGIN_PATH);
+		        $dir_path = sprintf("%sincludes",EAEL_PLUGIN_PATH);
             }
 
             $file_path = sprintf(
                 '%s/Template/%s/%s',
-                $file_path,
+	            $dir_path,
                 $template_info[ 'name' ],
                 $template_info[ 'file_name' ]
             );
+
+	        if ( ! $file_path || 0 !== strpos( $file_path, $dir_path ) ) {
+		        wp_send_json_error( 'Invalid template', 'invalid_template', 400 );
+	        }
 
             if ( $file_path ) {
                 $query = new \WP_Query( $args );
@@ -977,24 +980,28 @@ trait Helper
 			];
 		}
 
-		$template_info = $_REQUEST['template_info'];
+		$template_info = $this->eael_sanitize_template_param( $_REQUEST['template_info'] );
 
 		if ( $template_info ) {
 
 			if ( $template_info[ 'dir' ] === 'theme' ) {
-				$file_path = $this->retrive_theme_path();
+				$dir_path = $this->retrive_theme_path();
 			} else if($template_info[ 'dir' ] === 'pro') {
-				$file_path = sprintf("%sincludes",EAEL_PRO_PLUGIN_PATH);
+				$dir_path = sprintf("%sincludes",EAEL_PRO_PLUGIN_PATH);
 			} else {
-				$file_path = sprintf("%sincludes",EAEL_PLUGIN_PATH);
+				$dir_path = sprintf("%sincludes",EAEL_PLUGIN_PATH);
 			}
 
 			$file_path = sprintf(
 				'%s/Template/%s/%s',
-				$file_path,
+				$dir_path,
 				$template_info[ 'name' ],
 				$template_info[ 'file_name' ]
 			);
+
+			if ( ! $file_path || 0 !== strpos( $file_path, $dir_path ) ) {
+				wp_send_json_error( 'Invalid template', 'invalid_template', 400 );
+			}
 
             $html  = '';
 			if ( $file_path ) {
@@ -1025,6 +1032,21 @@ trait Helper
 		    return apply_filters( 'wpml_object_id', $id, $postType, true );
 	    }
 	    return $id;
+    }
+
+	/**
+	 * eael_sanitize_template_param
+     * Removes special characters that are illegal in filenames
+     *
+	 * @param array $template_info
+	 *
+     * @access public
+	 * @return array
+     * @since 5.0.4
+	 */
+    public function eael_sanitize_template_param( $template_info ){
+	    $template_info = array_map( 'sanitize_text_field', $template_info );
+	    return array_map( 'sanitize_file_name', $template_info );
     }
 	
 }
